@@ -1,0 +1,36 @@
+{% extends 'Boutique/base.html' %} {% block content %}
+<h2>Liste des Clients</h2>
+<a
+  href="{% url 'ajouter_client' %}"
+  style="background: green; color: white; padding: 10px; text-decoration: none"
+  >+ Ajouter Client</a>
+<br /><br />
+<table border="1" width="100%">
+  <tr>
+    <th>Nom</th>
+    <th>Ville</th>
+    <th>Actions</th>
+    <th>Actions 2</th>
+  </tr>
+  {% for c in clients %}
+  <tr>
+    <td>
+      <a href="{% url 'client_commandes' c.ncli %}"> {{ c.nom|upper }} </a>
+    </td>
+    <td>{{ c.localite }}</td>
+
+    </td>
+
+
+    <td>
+      <a href="{% url 'modifier_client' c.ncli %}">Modifier</a> |
+      <a href="{% url 'supprimer_client' c.ncli %}" style="color: red"
+        >Supprimer</a
+      >
+    </td>
+  
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

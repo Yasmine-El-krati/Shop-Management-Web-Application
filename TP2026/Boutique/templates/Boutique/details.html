@@ -1,0 +1,39 @@
+{% extends 'Boutique/base.html' %}
+{% block title %}Liste des Details{% endblock %}
+{% block content %}
+<h2>Liste des Details de Commandes</h2>
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th>Commande</th>
+            <th>Produit</th>
+            <th>Quantite</th>
+            <th>Client de</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for d in details %}
+        <tr>
+            <td>Commande n{{ d.commande.ncom }}
+                du {{ d.commande.datecom|date:"d/m/Y" }}</td>
+            <td>{{ d.produit.libelle }}</td>
+            <td style="text-align:center;">{{ d.qcom }}</td>
+            <td>{{ d.commande.client.localite }}</td>
+           
+                <td>
+                   <a href="{% url 'modifier_detail' d.commande.ncom d.produit.npro%}">Modifier</a>
+                     |
+                    <a href="{% url 'supprimer_detail'  d.commande.ncom d.produit.npro %}" style="color: red">Supprimer</a> |
+
+      
+      </td>
+
+
+          
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Aucun detail enregistre.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

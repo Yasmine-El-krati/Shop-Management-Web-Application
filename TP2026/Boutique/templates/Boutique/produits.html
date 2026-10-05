@@ -1,0 +1,38 @@
+{% extends 'Boutique/base.html' %}
+
+{% block content %}
+
+<h2>Stock Produits</h2>
+
+<a href="{% url 'ajouter_produit' %}" style="background: green; color: white; padding: 10px; text-decoration: none;">
+    + Ajouter Produit
+</a>
+<br><br>
+
+<ul>
+    {% for p in produits %}
+    <li>
+
+        {{ p.libelle|capfirst }}
+        <small>(slug: {{ p.libelle|slugify }})</small>
+        (Réf: {{ p.npro }})
+        - <strong>Stock: {{ p.qstock }}</strong>
+
+        |
+        <a href="{% url 'modifier_produit' p.npro %}">
+            Modifier
+        </a>
+
+        |
+        <a href="{% url 'supprimer_produit' p.npro %}" style="color: red;">
+            Supprimer
+        </a>
+
+
+    </li>
+    {% empty %}
+    <li>Aucun produit disponible</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

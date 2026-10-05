@@ -1,0 +1,34 @@
+{% extends 'Boutique/base.html' %}
+
+{% block content %}
+<h2>Historique des Commandes</h2>
+    <a
+  href="{% url 'ajouter_commande' %}"
+  style="background: green; color: white; padding: 10px; text-decoration: none"
+  >+ Ajouter Commandes</a>
+
+{% for com in commande %}
+<div style="border: 1px solid #333; margin-bottom: 20px; padding: 10px;">
+    <h3>Commande n°{{ com.ncom }} - Client : {{ com.client.nom }}</h3>
+    <a href="{% url 'modifier_commande' com.pk%}">Modefier</a>
+    <a href="{% url 'supprimer_commande' com.pk%}" style ="color:red">Supprimer</a>
+
+
+    <p><strong>Date :</strong> {{ com.datecom|date:"d/m/Y" }}</p>
+    <p><strong>Articles dans cette commande :</strong></p>
+    <ul>
+        
+
+
+        {% for ligne in com.lignes.all %}
+        <li>{{ ligne.produit.nom }} - Quantité: {{ ligne.qcom }}</li>
+        {% empty %}
+        <li>Aucun article enregistré.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% empty %}
+<p>Aucune commande enregistrée.</p>
+{% endfor %}
+
+{% endblock %}
